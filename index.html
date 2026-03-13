@@ -4,44 +4,110 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leave a Review</title>
+
+<title>AI Review Generator</title>
 
 <style>
 
 *{
 box-sizing:border-box;
 font-family: 'Segoe UI', sans-serif;
+margin:0;
+padding:0;
 }
 
-body{
+/* LOADING SCREEN */
 
-margin:0;
+#loading{
+
+position:fixed;
+width:100%;
 height:100vh;
+
 display:flex;
 align-items:center;
 justify-content:center;
+flex-direction:column;
 
 background:linear-gradient(135deg,#667eea,#764ba2);
+
+color:white;
+
+z-index:999;
+
+}
+
+.loader{
+
+width:70px;
+height:70px;
+border:6px solid rgba(255,255,255,0.3);
+border-top:6px solid white;
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+margin-bottom:20px;
+
+}
+
+@keyframes spin{
+
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
+
+}
+
+.ai-text{
+
+font-size:24px;
+font-weight:700;
+margin-bottom:10px;
+
+}
+
+.ai-sub{
+
+font-size:14px;
+opacity:0.8;
+
+}
+
+
+/* MAIN PAGE */
+
+body{
+
+background:linear-gradient(135deg,#667eea,#764ba2);
+
+height:100vh;
+
+display:flex;
+align-items:center;
+justify-content:center;
 
 }
 
 .card{
 
+display:none;
+
 width:90%;
 max-width:420px;
+
 padding:30px;
 
 border-radius:20px;
 
 background:rgba(255,255,255,0.15);
 
-backdrop-filter: blur(15px);
+backdrop-filter:blur(15px);
 
 box-shadow:0 20px 50px rgba(0,0,0,0.3);
 
-text-align:center;
-
 color:white;
+
+text-align:center;
 
 }
 
@@ -61,20 +127,12 @@ margin-bottom:20px;
 
 }
 
-.stars{
-
-font-size:22px;
-margin-bottom:15px;
-
-}
-
 textarea{
 
 width:100%;
 height:120px;
 
 border-radius:12px;
-
 border:none;
 
 padding:12px;
@@ -84,12 +142,6 @@ font-size:15px;
 resize:none;
 
 outline:none;
-
-}
-
-.buttons{
-
-margin-top:15px;
 
 }
 
@@ -123,31 +175,11 @@ color:white;
 
 }
 
-.change:hover{
-
-background:rgba(255,255,255,0.35);
-
-}
-
 .review{
 
 background:#00e676;
 
 color:black;
-
-}
-
-.review:hover{
-
-transform:scale(1.03);
-
-}
-
-.footer{
-
-margin-top:15px;
-font-size:12px;
-opacity:0.8;
 
 }
 
@@ -157,24 +189,39 @@ opacity:0.8;
 
 <body>
 
-<div class="card">
+<!-- AI LOADING SCREEN -->
 
-<div class="title">⭐ Leave a Review</div>
+<div id="loading">
 
-<div class="subtitle">
-Your feedback helps this business grow
+<div class="loader"></div>
+
+<div class="ai-text">
+🤖 Google Review Ready by AI
 </div>
 
-<div class="stars">
-★★★★★
+<div class="ai-sub">
+Preparing your review...
+</div>
+
+</div>
+
+
+<!-- MAIN REVIEW PAGE -->
+
+<div class="card" id="mainPage">
+
+<div class="title">
+⭐ Leave a Review
+</div>
+
+<div class="subtitle">
+Your feedback helps others
 </div>
 
 <textarea id="reviewBox"></textarea>
 
-<div class="buttons">
-
 <button class="change" onclick="changeReview()">
-🔄 Generate Another Review
+🔄 Change Review
 </button>
 
 <button class="review" onclick="leaveReview()">
@@ -183,16 +230,27 @@ Your feedback helps this business grow
 
 </div>
 
-<div class="footer">
-Thank you for supporting local business ❤️
-</div>
-
-</div>
 
 <script>
 
 const reviews=[
 
+"Amazing service and very friendly staff. Highly recommended!",
+
+"Great experience. The quality and professionalism were excellent.",
+
+"Very satisfied with the service. Will definitely come again.",
+
+"One of the best businesses in this area. Highly recommended.",
+
+"Excellent customer service and great attention to detail.",
+
+"Very professional team and smooth experience overall.",
+
+"Affordable pricing with high quality work.",
+
+"Super friendly staff and very quick service."
+  
 "Amazing service and very friendly staff. Highly recommended!",
 
 "Great experience. The quality and professionalism were excellent.",
@@ -490,7 +548,10 @@ const reviews=[
 "Prisha Enterprises me LED TV ka collection aur price dono achhe hain",
 
 "Prisha Enterprises Ghaziabad me LED TV ke liye best shopping place hai",
+  
+
 ];
+
 
 function randomReview(){
 
@@ -500,11 +561,13 @@ document.getElementById("reviewBox").value=reviews[index];
 
 }
 
+
 function changeReview(){
 
 randomReview();
 
 }
+
 
 function leaveReview(){
 
@@ -516,7 +579,18 @@ window.open("https://www.google.com/search?q=prisha+enterprises&oq=prisha+&gs_lc
 
 }
 
+
+/* LOADING SCREEN TIMER */
+
+setTimeout(function(){
+
+document.getElementById("loading").style.display="none";
+
+document.getElementById("mainPage").style.display="block";
+
 randomReview();
+
+},2500);
 
 </script>
 
